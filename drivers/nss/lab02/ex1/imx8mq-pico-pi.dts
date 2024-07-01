@@ -1,0 +1,6 @@
+/dts-v1/;
+
+/* A very **useful** skeleton for exercise 1 - devicetree warm-up */
+
+/ {
+};

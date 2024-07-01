@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+if NSS_DRIVERS_LAB02
+
+config NSS_DRIVERS_LAB02_EX02
+	tristate "Exercise 02 - platform drivers warm-up"
+	default n
+	help
+	  Exercise 02 - platform drivers warm-up.
+
+config NSS_DRIVERS_LAB02_EX03
+	tristate "Exercise 03 - LED warm-up"
+	default n
+	help
+	  Exercise 03 - GPIO warm-up.
+
+config NSS_DRIVERS_LAB02_EX04
+	tristate "Exercise 04 - LED math"
+	default n
+	help
+	  Exercise 04 - LED math.
+
+endif # NSS_DRIVERS_LAB02

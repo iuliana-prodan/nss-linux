@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+menuconfig NSS_DRIVERS
+	bool "NXP summer school drivers"
+	default n
+	help
+	  Enable support for NXP Summer School drivers.
+
+if NSS_DRIVERS
+
+config NSS_DRIVERS_LAB02
+	bool "NXP summer school lab 02 drivers"
+	default n
+	help
+	  Enable support for lab 02 drivers.
+
+source "drivers/nss/lab02/Kconfig"
+
+endif # NSS_DRIVERS

@@ -11,22 +11,32 @@
 #include "imx8mq-pico.dtsi"
 
 
-&gpio3 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_gpio3>;
-	gpio-line-names =
-		"GPIO_P28", "", "", "GPIO_P25", "", "GPIO_P30", "", "",
-		"", "", "", "", "", "", "", "GPIO_P32",
-		"", "", "", "", "", "", "", "",
-		"", "", "", "", "", "", "", "";
-};
-
 / {
 	model = "TechNexion PICO-IMX8MQ and PI baseboard";
 	compatible = "pico,imx8mq-pico", "fsl,imx8mq";
 
 	chosen {
 		stdout-path = &uart1;
+	};
+
+	nss-bus {
+		compatible = "simple-bus";
+
+		nss-led {
+			compatible = "nss,led";
+			pinctrl-names = "default";
+			pinctrl-0 = <&pinctrl_nss_led>;
+			/* TODO: add GPIO property */
+			status = "disabled";
+		};
+
+		nss-led-math {
+			compatible = "nss,led-math";
+			pinctrl-names = "default";
+			pinctrl-0 = <&pinctrl_nss_led_math>;
+			/* TODO: add GPIO properties */
+			status = "disabled";
+		};
 	};
 
 	regulators {
@@ -300,6 +310,19 @@
 			MX8MQ_IOMUXC_NAND_CE2_B_GPIO3_IO3		0x19 /* GPIO_P25, CLIX_RESET */
 			MX8MQ_IOMUXC_NAND_CLE_GPIO3_IO5			0x19 /* GPIO_P30 */
 			MX8MQ_IOMUXC_NAND_RE_B_GPIO3_IO15		0x19 /* GPIO_P32 */
+		>;
+	};
+	pinctrl_nss_led: gpio3led {
+		fsl,pins = <
+			MX8MQ_IOMUXC_NAND_CE3_B_GPIO3_IO4               0x19 /* GPIO_P26 */
+		>;
+	};
+
+	pinctrl_nss_led_math: gpio3ledmath {
+		fsl,pins = <
+			MX8MQ_IOMUXC_NAND_CE3_B_GPIO3_IO4               0x19 /* GPIO_P26 */
+			MX8MQ_IOMUXC_NAND_ALE_GPIO3_IO0                 0x19 /* GPIO_P28 */
+			MX8MQ_IOMUXC_NAND_CLE_GPIO3_IO5                 0x19 /* GPIO_P30 */
 		>;
 	};
 };
