@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+if NSS_DRIVERS_LAB01
+
+config NSS_DRIVERS_LAB01_EX01
+	tristate "Exercise 01 - Linux kernel module"
+	default n
+	help
+	  Exercise 01 - Linux kernel module sample.
+
+config NSS_DRIVERS_LAB01_EX04
+	tristate "Exercise 04 - Linux kernel module with parameter"
+	default n
+	help
+	  Exercise 04 - Linux kernel module with parameter.
+
+config NSS_DRIVERS_LAB01_EX05
+	tristate "Exercise 05 - Character device driver"
+	default n
+	help
+	  Exercise 04 - Character device driver sample.
+
+endif # NSS_DRIVERS_LAB01
