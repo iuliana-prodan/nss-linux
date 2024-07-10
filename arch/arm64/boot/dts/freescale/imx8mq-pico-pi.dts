@@ -22,12 +22,17 @@
 	nss-bus {
 		compatible = "simple-bus";
 
+		my-awesome-device {
+			compatible = "nss,my-awesome-device";
+		};
+
 		nss-led {
 			compatible = "nss,led";
 			pinctrl-names = "default";
 			pinctrl-0 = <&pinctrl_nss_led>;
 			/* TODO: add GPIO property */
-			status = "disabled";
+			led-gpios = <&gpio3 4 GPIO_ACTIVE_HIGH>;
+			status = "okay";
 		};
 
 		nss-led-math {
