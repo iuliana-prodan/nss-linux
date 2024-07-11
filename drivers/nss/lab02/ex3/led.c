@@ -14,12 +14,20 @@ struct led_data {
 	struct cdev cdev;
 };
 
+struct led_data *my_led;
+static ssize_t	led_write(struct file *, const char *, size_t, loff_t *);
+
+static const struct file_operations led_fops = {
+	.owner		= THIS_MODULE,
+	.write		= led_write
+};
+
 static void led_remove(struct platform_device *pdev)
 {
 	struct led_data *data = platform_get_drvdata(pdev);
 
-	/* TODO: delete chardev */
-	/* TODO: unregister chardev region */
+	unregister_chrdev_region(MKDEV(500, 0), 1);
+	cdev_del(&data->cdev);
 }
 
 static int led_probe(struct platform_device *pdev)
@@ -38,14 +46,31 @@ static int led_probe(struct platform_device *pdev)
 	}
 
 	/* TODO: get GPIO handle */
-	/* TODO: register chardev region */
-	/* TODO: initialize and add chardev */
+
+	/* register chardev region */
+	register_chrdev_region(MKDEV(500, 0), 1 , "led");
+
+	/* initialize and add chardev */
+	cdev_init(&data->cdev, &led_fops);
+	data->cdev.owner = THIS_MODULE;
+	cdev_add(&data->cdev, MKDEV(500, 0), 1);
+	dev_info(dev, "Created char dev with MAJOR 500 and MINOR 0\n");
 
 	platform_set_drvdata(pdev, data);
+	my_led = data;
 
 	dev_info(dev, "LED driver probe end\n");
 
 	return 0;
+}
+
+static ssize_t led_write(struct file *filep, const char *buffer, size_t len, loff_t *offset)
+{
+	pr_info("Got buffer = [%s], len = %zd\n", buffer, len);
+
+	/* TODO: Use gpiod_set_value() based on the strings "on"/"off" got from userspace */
+
+	return len;
 }
 
 static const struct of_device_id led_of_match[] = {
